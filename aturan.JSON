@@ -1,0 +1,126 @@
+{
+    "judul": "Sistem Pakar Kelayakan Pengajuan Skripsi/Tugas Akhir",
+    "metode": "Forward Chaining",
+    "batas": "Sistem ini merupakan alat bantu pengecekan awal berdasarkan aturan simulasi. Ambang 138 SKS, IPK minimal 2,00, kelulusan Metodologi Penelitian dan PKL/Magang, serta bebas nilai E harus diverifikasi kembali dengan pedoman terbaru Program Studi Teknik Informatika Universitas Mataram. Hasil sistem bukan keputusan administratif resmi dari program studi, fakultas, atau biro akademik.",
+    "sumber": {
+        "S1": {
+            "judul": "Peraturan Rektor Universitas Mataram Nomor 9 Tahun 2023 tentang Pedoman Akademik",
+            "penerbit": "Universitas Mataram",
+            "url": "https://ppid.unram.ac.id/regulasi-peraturan-rektor/",
+            "tanggal_akses": "14 November 2026",
+            "keterangan": "Referensi umum ketentuan akademik Universitas Mataram. Ambang 138 SKS pada model ini tidak diklaim sebagai kutipan langsung dari peraturan."
+        },
+        "S2": {
+            "judul": "Files – Pedoman Tugas Akhir dan Pedoman PKL Program Studi Teknik Informatika",
+            "penerbit": "Program Studi Teknik Informatika, Fakultas Teknik, Universitas Mataram",
+            "url": "https://if.unram.ac.id/files/",
+            "tanggal_akses": "14 November 2026",
+            "keterangan": "Laman resmi prodi yang menyediakan dokumen Pedoman Tugas Akhir dan Pedoman PKL. Ketentuan rinci perlu diperiksa pada dokumen yang diunduh."
+        },
+        "S3": {
+            "judul": "Spesifikasi Program Studi Teknik Informatika",
+            "penerbit": "Program Studi Teknik Informatika, Fakultas Teknik, Universitas Mataram",
+            "url": "https://if.unram.ac.id/id/spec-study-program/",
+            "tanggal_akses": "14 November 2026",
+            "keterangan": "Referensi profil dan informasi akademik program studi; bukan bukti bahwa 138 SKS merupakan ambang pendaftaran skripsi."
+        }
+    },
+    "pertanyaan": [
+        {
+            "fakta_ya": "sks_cukup",
+            "fakta_tidak": "sks_kurang",
+            "teks": "Apakah total SKS Anda minimal 138?"
+        },
+        {
+            "fakta_ya": "ipk_cukup",
+            "fakta_tidak": "ipk_kurang",
+            "teks": "Apakah IPK Anda minimal 2,00?"
+        },
+        {
+            "fakta_ya": "lulus_metopen",
+            "fakta_tidak": "belum_lulus_metopen",
+            "teks": "Apakah Anda sudah lulus mata kuliah Metodologi Penelitian?"
+        },
+        {
+            "fakta_ya": "lulus_pkl",
+            "fakta_tidak": "belum_lulus_pkl",
+            "teks": "Apakah Anda sudah lulus PKL/Magang?"
+        },
+        {
+            "fakta_ya": "ada_nilai_e",
+            "fakta_tidak": "bebas_nilai_e",
+            "teks": "Apakah masih ada nilai E pada mata kuliah wajib Anda?"
+        }
+    ],
+    "aturan": [
+        {
+            "id": "R1",
+            "jika": [
+                "sks_cukup",
+                "ipk_cukup"
+            ],
+            "mode": "dan",
+            "maka": "syarat_dasar_terpenuhi",
+            "sumber": [
+                "S1"
+            ]
+        },
+        {
+            "id": "R2",
+            "jika": [
+                "lulus_metopen",
+                "lulus_pkl"
+            ],
+            "mode": "dan",
+            "maka": "syarat_prasyarat_terpenuhi",
+            "sumber": [
+                "S2"
+            ]
+        },
+        {
+            "id": "R3",
+            "jika": [
+                "syarat_dasar_terpenuhi",
+                "syarat_prasyarat_terpenuhi",
+                "bebas_nilai_e"
+            ],
+            "mode": "dan",
+            "maka": "LAYAK Mengajukan Skripsi",
+            "sumber": [
+                "S1",
+                "S2"
+            ]
+        },
+        {
+            "id": "R4",
+            "jika": [
+                "syarat_dasar_terpenuhi",
+                "syarat_prasyarat_terpenuhi",
+                "ada_nilai_e"
+            ],
+            "mode": "dan",
+            "maka": "TIDAK LAYAK (Perbaiki Nilai E)",
+            "sumber": [
+                "S1",
+                "S2"
+            ]
+        },
+        {
+            "id": "R5",
+            "jika": [
+                "sks_kurang",
+                "ipk_kurang"
+            ],
+            "mode": "atau",
+            "maka": "TIDAK LAYAK (SKS atau IPK Kurang)",
+            "sumber": [
+                "S1"
+            ]
+        }
+    ],
+    "kesimpulan_akhir": [
+        "LAYAK Mengajukan Skripsi",
+        "TIDAK LAYAK (Perbaiki Nilai E)",
+        "TIDAK LAYAK (SKS atau IPK Kurang)"
+    ]
+}
